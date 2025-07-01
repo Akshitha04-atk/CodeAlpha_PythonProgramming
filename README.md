@@ -2,70 +2,76 @@
 This project is a Python-based console application that includes two mini programs:  1. Hangman Game 🎮   2. Rule-Based Chatbot 🤖    Both programs demonstrate the use of core programming concepts such as conditionals, loops, functions, string manipulation, and user input/output in Python. They are designed to be interactive and beginner friendly.
 Absolutely! Here's a complete project description that combines both your tasks: the Hangman Game and the Basic Chatbot, ideal for submitting as a school/college-level Python project.
 
-💡 Tools Used: Python 3, Console Input/Output, Basic Emojis
-
-
 1️⃣ Task 1: Hangman Game 🎮
+import random
 
-✅ Description:
+# Predefined list of words
+word_list=["demon","apple","india","anime","table","ocean"]
 
-The Hangman Game is a classic word-guessing game where:
+# Choose a random word from the list
+word_to_guess=random.choice(word_list)
+guessed_letters=[]
+incorrect_guesses=0
+max_incorrect_guesses=6
 
-The computer randomly selects a word from a predefined list of 5 words.
+# Create a hidden version of the word
+display_word=['_']*len(word_to_guess)
 
-The player guesses one letter at a time.
+print("\U0001F3AE Welcome to Hangman!")
+print("Guess the word,one letter at a time.")
+print("You have 6 incorrect guesses. Good luck!")
 
-The player has a maximum of 6 incorrect guesses before the game ends.
+#Game loop
+while incorrect_guesses<max_incorrect_guesses and '_' in display_word:
+    print('\nWord:',''.join(display_word))
+    print('Guessed letters:',''.join(guessed_letters))
+    guess=input("Enter a letter:").lower()
+    if not guess.isalpha() or len(guess)!=1:
+        print('Please enter a single alphabetic character.')
+        continue
+    if guess in guessed_letters:
+        print("You've already guessed that letter.")
+        continue
+    guessed_letters.append(guess)
 
-Correct guesses reveal the letters in the word.
+    if guess in word_to_guess:
+        print("\U00002705 CORRECT!")
 
-Incorrect guesses reduce the remaining attempts.
+#Update the display word with the guessed letter
+    for i in range(len(word_to_guess)):
+        if word_to_guess[i]==guess:
+            display_word[i]=guess
+    else:
+        incorrect_guesses+=1
+        print(f'\U0000274C INCORRECT! You have {max_incorrect_guesses-incorrect_guesses}guesses left.')
 
-🧠 Concepts Used:
+# Game result
+if '_' not in display_word:
+    print('\n \U0001F389 CONGRATULATIONS! You guessed the word:',word_to_guess)
+else:
+    print('\n \U0001F480 GAME OVER! The correct word was:',word_to_guess)
 
-random.choice() for word selection
-
-while loop for game flow
-
-if-else logic for checking letters
-
-lists and strings for displaying progress
-
-Console input/output with emoji responses for feedback (✅, ❌, 💀, 🎉)
 
 2️⃣ Task 2: Basic Rule-Based Chatbot 🤖
+def chatbot():
+    print("\U0001F916 Chatbot:Hello!I'm your friend chatbot.Type 'bye' to exit.")
 
-✅ Description:
+    while True:
+        user_input=input('You:').lower()
 
-A simple chatbot that simulates conversation based on rule matching:
+        if 'hello' in user_input or'hi' in user_input:
+            print("\U0001F916 Chatbot: Hi there \U0001F44B!")
+        elif 'how are you' in user_input:
+            print("\U0001F916 Chatbot:I'm doing great!Thanks for asking \U0001F60A")
+        elif 'your name' in user_input:
+            print("\U0001F916 Chatbot:I'm Scooby or you can also call me Chatbot 1.0.What's yours?")
+        elif 'help' in user_input:
+            print("\U0001F916 Chatbot:Sure! You can say 'hello',ask 'how are you',or say 'bye'.")
+        elif 'bye' in user_input:
+            print("\U0001F916 Chatbot:Goodbye! Have a nice day \U0001F600.")
+            break
+        else:
+            print("\U0001F916 Chatbot: I'm not sure how to respond to that \U0001F914")
 
-Responds to inputs like “hello”, “how are you”, “bye”, etc.
-
-Provides predefined answers using if-elif-else.
-
-Handles unknown inputs with a fallback message.
-
-Can be enhanced to recognize keywords using in operator.
-
-Emojis like 👋, 😊, and ❌ are used to make replies more expressive.
-
-🧠 Concepts Used:
-
-functions to define chatbot behavior
-
-while loop for ongoing conversation
-
-if-elif-else decision structure
-
-string.lower() and in for keyword matching
-
-Basic emoji output in terminal
-
-🚀 Conclusion
-
-This mini project demonstrates how core programming concepts in Python can be applied to create engaging console-based applications. The Hangman Game encourages logical thinking and loop-based programming, while the Chatbot emphasizes decision-making and interaction. Emoji integration adds a modern and playful touch to the command-line interface.
-
-
-
-
-
+# Run the chatbot
+chatbot()
