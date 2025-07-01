@@ -81,7 +81,5 @@ def chatbot():
             break
         else:
             print("\U0001F916 Chatbot: I'm not sure how to respond to that \U0001F914")
-
 # Run the chatbot
-
 chatbot()
